@@ -1,7 +1,6 @@
 package com.example.api.cliente;
 
-import com.example.api.endereco.DadosEndereco;
-import com.example.api.endereco.Endereco;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,20 +15,18 @@ public class Cliente {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nomeCliente;
-    @Embedded
-    private Endereco endereco;
+
     private String celular;
-    private String email;
-    private String nascimento;
+
+
     private Boolean ativo;
+    private String mensagem;
 
     public Cliente(DadosCadastroCliente dados) {
         this.ativo = true;
         this.nomeCliente = dados.nomeCliente();
-        this.endereco = new Endereco(dados.endereco());
         this.celular = dados.celular();
-        this.email = dados.email();
-        this.nascimento = dados.nascimento();
+        this.mensagem = dados.mensagem();
     }
 
     public void atualizarInformacoes(DadosAtualizacaoCliente dados) {
@@ -38,6 +35,9 @@ public class Cliente {
         }
         if (dados.celular() != null){
         this.celular = dados.celular();
+        }
+        if (dados.mensagem() != null){
+            this.mensagem = dados.mensagem();
         }
     }
 
